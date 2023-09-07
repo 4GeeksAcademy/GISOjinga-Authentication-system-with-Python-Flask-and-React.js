@@ -1,9 +1,12 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+// Navbar.js
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../AuthContext"; // Import the context
 
 export const Navbar = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false); // State to check if logged in
-
+    const navigate = useNavigate();
+    const { isLoggedIn, setIsLoggedIn } = useAuth(); // Use the context
+    
     return (
         <nav className="navbar navbar-light bg-light">
             <div className="container">
@@ -26,6 +29,7 @@ export const Navbar = () => {
                             className="btn btn-danger" 
                             onClick={() => {
                                 setIsLoggedIn(false); // Log out and set state to false
+                                navigate("/")
                             }}
                         >
                             Logout

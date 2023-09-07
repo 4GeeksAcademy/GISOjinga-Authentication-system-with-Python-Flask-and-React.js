@@ -1,6 +1,11 @@
 import React from "react";
+import { useAuth } from "../AuthContext"; // Import the context
 
 const Validation = () => {
+  const { isLoggedIn, setIsLoggedIn } = useAuth(); // Use the context
+
+  setIsLoggedIn(true); // Set the state to true
+
   return (
     <div className="container">
       <div className="row">

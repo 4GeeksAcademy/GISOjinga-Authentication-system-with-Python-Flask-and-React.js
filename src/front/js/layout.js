@@ -6,8 +6,9 @@ import { BackendURL } from "./component/backendURL";
 import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
+import { AuthProvider } from "./AuthContext";
 import Login from "./pages/login";
-import Signup from "./pages/signUp";
+import SignUp from "./pages/signUp";
 import Validation from "./pages/validation";
 import injectContext from "./store/appContext";
 
@@ -20,6 +21,7 @@ const Layout = () => {
     if(!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL/ >;
 
     return (
+        <AuthProvider>
         <div>
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
@@ -29,7 +31,7 @@ const Layout = () => {
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<Login />} path="/login" />
-                        <Route element={<Signup />} path="/signup" />
+                        <Route element={<SignUp />} path="/signup" />
                         <Route element={<Validation />} path="/validation" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
@@ -37,6 +39,7 @@ const Layout = () => {
                 </ScrollToTop>
             </BrowserRouter>
         </div>
+        </AuthProvider>
     );
 };
 

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-export const SignUp = () => {
+const SignUp = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const history = useHistory();
+    const navigate = useNavigate();
 
+    console.log(process.env.BACKEND_URL);
     //>> Handles the form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -30,7 +31,7 @@ export const SignUp = () => {
 
         if (response.status === 201) {
             //>> User creation successful, redirect to login page
-            history.push('/login');
+            navigate('/login');
         } else {
             //>> Show error message
             alert(data.message);
@@ -54,3 +55,6 @@ export const SignUp = () => {
         </div>
     );
 };
+
+
+export default SignUp;

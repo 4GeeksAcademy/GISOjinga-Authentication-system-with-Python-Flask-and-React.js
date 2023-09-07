@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from "../AuthContext"; // Import the context
 import axios from 'axios'; // Import Axios library to make HTTP requests
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const handleLogin = () => {
         //--> Start by constructing the payload
@@ -19,7 +20,7 @@ const Login = () => {
             .then(response => {
                 //--> If login is successful, move to the Validation page
                 if(response.status === 200) {
-                    history.push('/validation');
+                    navigate('/validation');
                 }
             })
             .catch(error => {
