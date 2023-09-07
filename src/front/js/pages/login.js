@@ -16,7 +16,7 @@ const Login = () => {
         };
 
         //--> Sending the login request to the backend
-        axios.post(`${process.env.BACKEND_URL}/api/login`, payload)
+        axios.post(process.env.BACKEND_URL+`api/login`, payload)
             .then(response => {
                 //--> If login is successful, move to the Validation page
                 if(response.status === 200) {

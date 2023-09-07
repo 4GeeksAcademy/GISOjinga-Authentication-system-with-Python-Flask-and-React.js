@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, url_for, Blueprint, session, redirect
+from datetime import timedelta
 from api.models import db, User
 from api.utils import APIException
 from werkzeug.security import check_password_hash
@@ -48,8 +49,10 @@ def handle_login():
 
 @api.route('/private', methods=['GET'])
 def handle_private():
+    user_id = session.get('user_id')
+
     # Validate if user is logged in
-    if 'user_id' not in session:
+    if user_id != None:
         return redirect(url_for('api.handle_login'))
 
     # Render private dashboard

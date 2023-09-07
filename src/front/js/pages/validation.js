@@ -12,20 +12,23 @@ const Validation = () => {
         // Function to fetch data from the /private route
         const fetchData = async () => {
             try {
-                const result = await axios.get("/private", {
+                console.log("Fetching data...");
+                const result = await axios.get(process.env.BACKEND_URL+'api/private', {
                     headers: {
                         Authorization: "Bearer " + localStorage.getItem("token"), // Replace with how you store the token
                     },
                 });
                 
-                if (result.data.success) {
-                    setData(result.data.data); // Assuming server sends confidential data
+                console.log("Data fetched:", result);
+                if (result.data.msg === "This is a private dashboard") {
+                    setData(result.data.msg); // Assuming server sends confidential data
                 }
             } catch (error) {
-                // If an error occurs (e.g., token invalid, server error), log the user out
-                setIsLoggedIn(false);
-                localStorage.removeItem("token");
-                navigate("/login");
+                if (error.response && error.response.status === 401) {
+                    setIsLoggedIn(false);
+                    localStorage.removeItem("token");
+                    navigate("/login");
+                }
             }
         };
 

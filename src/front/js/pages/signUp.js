@@ -18,7 +18,7 @@ const SignUp = () => {
         };
 
         //>> Sending POST request to Flask API to create a new user
-        const response = await fetch(process.env.BACKEND_URL+'/api/signup', {
+        const response = await fetch(process.env.BACKEND_URL+'api/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
