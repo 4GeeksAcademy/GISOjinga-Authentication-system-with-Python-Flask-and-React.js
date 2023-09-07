@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios'; // Import Axios library to make HTTP requests
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -7,11 +8,24 @@ const Login = () => {
     const history = useHistory();
 
     const handleLogin = () => {
-        // Here, you'd typically send 'email' and 'password' to the backend to validate
-        // If validation is successful, you can redirect to the Validation page
-        // For demonstration, we'll skip the backend validation step
+        //--> Start by constructing the payload
+        const payload = {
+            email: email,
+            password: password
+        };
 
-        history.push('/validation');
+        //--> Sending the login request to the backend
+        axios.post(`${process.env.BACKEND_URL}/api/login`, payload)
+            .then(response => {
+                //--> If login is successful, move to the Validation page
+                if(response.status === 200) {
+                    history.push('/validation');
+                }
+            })
+            .catch(error => {
+                //--> Handle errors (Optional)
+                console.error("There was an error logging in:", error);
+            });
     };
 
     return (
